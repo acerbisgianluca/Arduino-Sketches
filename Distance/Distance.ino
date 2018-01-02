@@ -1,20 +1,20 @@
-const int triggerPort = 7;  //DIGITAL PIN 7
-const int echoPort = 8;     //DIGITAL PIN 8
+#define SIGPORT 10
  
 void setup() {
-  pinMode(triggerPort, OUTPUT);
-  pinMode(echoPort, INPUT);
+  Serial.begin(9600);
 }
  
 void loop() { 
-  digitalWrite(triggerPort, LOW);
-  digitalWrite(triggerPort, HIGH);
+  pinMode(10, OUTPUT);
+  digitalWrite(SIGPORT, LOW);
+  digitalWrite(SIGPORT, HIGH);
   delayMicroseconds(10);
-  digitalWrite(triggerPort, LOW);
+  digitalWrite(SIGPORT, LOW);
+  pinMode(10, INPUT);
    
-  long period = pulseIn(echoPort, HIGH);
+  long period = pulseIn(SIGPORT, HIGH);
    
-  long distance = 0.034 * period / 2;
+  long distance = period / 29 / 2;
   
   if( period > 38000 ){
     Serial.println("Out of reach!");
